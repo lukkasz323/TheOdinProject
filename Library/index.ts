@@ -1,3 +1,16 @@
+function addBookButton_onclick(event: PointerEvent) {
+    // Toggle "Add book" menu
+    const menu = document.getElementById("add-book");
+    const display = "inline";
+
+    if (menu.style.display !== display) {
+        menu.style.display = display;
+    }
+    else {
+        menu.style.display = "none";
+    }
+}
+
 class Book {
     constructor(public title: string, public author: string) {}
 }
@@ -15,7 +28,7 @@ class Book {
         // Head
         {
             const head: HTMLTableSectionElement = library.createTHead();
-            
+
             const row: HTMLTableRowElement = head.insertRow();
             const nameCell: HTMLTableCellElement = row.insertCell();
             const authorCell: HTMLTableCellElement = row.insertCell();

@@ -1,3 +1,14 @@
+function addBookButton_onclick(event) {
+    // Toggle "Add book" menu
+    const menu = document.getElementById("add-book");
+    const display = "inline";
+    if (menu.style.display !== display) {
+        menu.style.display = display;
+    }
+    else {
+        menu.style.display = "none";
+    }
+}
 class Book {
     title;
     author;

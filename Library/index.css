@@ -14,5 +14,14 @@ thead {
 
 td {
     border: solid 2px;
-    padding: 8px;
+    padding: 0.5em;
+}
+
+#add-book {
+    display: none;
+    position: absolute;
+    padding: 0.5em;
+    backdrop-filter: blur(1em);
+    border: solid 1px;
+    border-radius: 1em;
 }
