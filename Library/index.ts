@@ -8,7 +8,7 @@ class Book {
     books.push(new Book("BookName1", "BookAuthor1"));
     books.push(new Book("BookName2", "BookAuthor1"));
     
-    // Append books to library
+    // Append books to the library table
     {
         const library = <HTMLTableElement>document.getElementById("library");
         
