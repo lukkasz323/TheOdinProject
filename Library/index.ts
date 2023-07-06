@@ -15,7 +15,7 @@ class Book {
         // Head
         {
             const head: HTMLTableSectionElement = library.createTHead();
-    
+            
             const row: HTMLTableRowElement = head.insertRow();
             const nameCell: HTMLTableCellElement = row.insertCell();
             const authorCell: HTMLTableCellElement = row.insertCell();
