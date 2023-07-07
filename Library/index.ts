@@ -2,7 +2,7 @@ declare var books: Book[];
 declare var isAddBookMenuOpen: boolean;
 
 class Book {
-    constructor(public title: string, public author: string) {}
+    constructor(public title: string, public author: string, public isRead: boolean) {}
 }
 
 function addBook_menuButton_event_onclick(event: PointerEvent) {
@@ -17,7 +17,7 @@ function addBook_submitButton_event_onclick(event: PointerEvent) {
         return;
     }
 
-    globalThis.books.push(new Book(title.value, author.value));
+    globalThis.books.push(new Book(title.value, author.value, false));
     title.value = "";
     author.value = "";
 
@@ -37,10 +37,16 @@ function addBook_toggleMenu() {
     }
 }
 
+function isReadCheckbox_event_onchange(event) {
+    const target = <HTMLInputElement>event.target;
+    const book: Book = globalThis.books[target.closest("tr").dataset.index];
+    book.isRead = !book.isRead;
+}
+
 function deleteButton_event_onclick(event: PointerEvent) {
     // Delete book
     const target = <HTMLElement>event.target;
-    const bookIndex = Number(target.parentElement.parentElement.dataset.id);
+    const bookIndex = Number(target.closest("tr").dataset.index);
     globalThis.books.splice(bookIndex, 1);
 
     reloadDOM();
@@ -56,9 +62,11 @@ function generateLibrary(): HTMLTableElement {
         const row: HTMLTableRowElement = head.insertRow();
         const nameCell: HTMLTableCellElement = row.insertCell();
         const authorCell: HTMLTableCellElement = row.insertCell();
+        const isReadCell: HTMLTableCellElement = row.insertCell();
         const deleteCell: HTMLTableCellElement = row.insertCell();
         nameCell.innerText = "Title";
         authorCell.innerText = "Author";
+        isReadCell.innerText = "Read?";
         deleteCell.innerText = "DELETE";
     }
 
@@ -70,12 +78,18 @@ function generateLibrary(): HTMLTableElement {
             const book = globalThis.books[i];
 
             const row: HTMLTableRowElement = body.insertRow();
-            row.dataset.id = i.toString();
+            row.dataset.index = i.toString();
 
             const titleCell: HTMLTableCellElement = row.insertCell();
             const authorCell: HTMLTableCellElement = row.insertCell();
             titleCell.innerText = book.title;
             authorCell.innerText = book.author;
+
+            const isReadCell: HTMLTableCellElement = row.insertCell();
+            const isReadCheckbox: HTMLInputElement = document.createElement("input");
+            isReadCheckbox.type = "checkbox";
+            isReadCheckbox.addEventListener("change", isReadCheckbox_event_onchange)
+            isReadCell.appendChild(isReadCheckbox);
 
             const deleteCell: HTMLTableCellElement = row.insertCell();
             const deleteButton: HTMLButtonElement = document.createElement("button");
@@ -100,10 +114,13 @@ function main() {
     globalThis.books = [];
     globalThis.isAddBookMenuOpen = false;
 
-    books.push(new Book("Roadside Picnic", "A. & B. Strugatsky"));
-    books.push(new Book("Brave New World", "Aldous Huxley"));
+    books.push(new Book("Roadside Picnic", "A. & B. Strugatsky", false));
+    books.push(new Book("Brave New World", "Aldous Huxley", false));
     
     reloadDOM();
+
+    document.getElementById("add-book-menu-button").addEventListener("click", () => addBook_menuButton_event_onclick);
+    document.getElementById("add-book-submit-button").addEventListener("click", () => addBook_submitButton_event_onclick);
 }
 
 main();
