@@ -15,6 +15,7 @@ thead {
 td {
     border: solid 2px;
     padding: 0.5em;
+    text-align: center;
 }
 
 #add-book {
@@ -24,4 +25,8 @@ td {
     backdrop-filter: blur(1em);
     border: solid 1px;
     border-radius: 1em;
+}
+
+td > button {
+    font-weight: bold;
 }

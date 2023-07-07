@@ -31,6 +31,13 @@ function addBook_toggleMenu() {
         menu.style.display = "none";
     }
 }
+function deleteButton_event_onclick(event) {
+    // Delete book
+    const target = event.target;
+    const bookIndex = Number(target.parentElement.parentElement.dataset.id);
+    globalThis.books.splice(bookIndex, 1);
+    reloadDOM();
+}
 function generateLibrary() {
     const library = document.createElement('table');
     // Head
@@ -39,18 +46,27 @@ function generateLibrary() {
         const row = head.insertRow();
         const nameCell = row.insertCell();
         const authorCell = row.insertCell();
+        const deleteCell = row.insertCell();
         nameCell.innerText = "Title";
         authorCell.innerText = "Author";
+        deleteCell.innerText = "DELETE";
     }
     // Body
     {
         const body = library.createTBody();
-        for (const book of globalThis.books) {
+        for (let i = 0; i < globalThis.books.length; i++) {
+            const book = globalThis.books[i];
             const row = body.insertRow();
+            row.dataset.id = i.toString();
             const titleCell = row.insertCell();
             const authorCell = row.insertCell();
             titleCell.innerText = book.title;
             authorCell.innerText = book.author;
+            const deleteCell = row.insertCell();
+            const deleteButton = document.createElement("button");
+            deleteButton.innerText = "X";
+            deleteButton.addEventListener("click", deleteButton_event_onclick);
+            deleteCell.appendChild(deleteButton);
         }
     }
     return library;
@@ -64,8 +80,8 @@ function reloadDOM() {
 function main() {
     globalThis.books = [];
     globalThis.isAddBookMenuOpen = false;
-    books.push(new Book("BookName1", "BookAuthor1"));
-    books.push(new Book("BookName2", "BookAuthor1"));
+    books.push(new Book("Roadside Picnic", "A. & B. Strugatsky"));
+    books.push(new Book("Brave New World", "Aldous Huxley"));
     reloadDOM();
 }
 main();
