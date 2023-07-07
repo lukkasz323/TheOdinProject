@@ -8,19 +8,19 @@
 </head>
 <body>
     <h1>Library</h1>
-    <button onclick="addBookButton_onclick(event)">New book</button>
+    <button onclick="addBook_menuButton_event_onclick(event)">Add book</button>
     <div id="add-book">
         Title:
         <br>
-        <input>
+        <input type="text" id="add-book-title">
         <br>
         <br>
         Author:
         <br>
-        <input>
+        <input type="text" id="add-book-author">
         <br>
         <br>
-        <button>Add</button>
+        <button onclick="addBook_submitButton_event_onclick(event)">Submit</button>
     </div>
     <br>
     <br>
