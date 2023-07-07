@@ -96,7 +96,6 @@ function generateLibrary(): HTMLTableElement {
             deleteButton.innerText = "X";
             deleteButton.addEventListener("click", deleteButton_event_onclick);
             deleteCell.appendChild(deleteButton);
-            
         }
     }
 
