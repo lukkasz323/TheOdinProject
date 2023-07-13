@@ -1,0 +1,25 @@
+body {
+    background-color: #222;
+    color: white;
+    font-family: Verdana;
+}
+
+#buttons {
+    position: absolute;
+    width: 20em;
+    height: 20em;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-area: 1;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    
+}
