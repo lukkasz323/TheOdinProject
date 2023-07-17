@@ -10,11 +10,11 @@ function canvas_event_click(event: PointerEvent, canvas: HTMLCanvasElement, game
 
 function main() {
     const canvas = <HTMLCanvasElement>document.getElementById("game-canvas");
-
     const gameboard = new Gameboard();
-    canvas.addEventListener("click", (event: PointerEvent) => canvas_event_click(event, canvas, gameboard));
 
-    renderGame(canvas);
+    canvas.addEventListener("click", (event: PointerEvent) => canvas_event_click(event, canvas, gameboard));
+    
+    renderGame(canvas, gameboard);
 }
 
 main();
