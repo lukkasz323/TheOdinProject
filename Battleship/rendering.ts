@@ -7,7 +7,9 @@ export function renderGame(canvas: HTMLCanvasElement, gameboard: Gameboard) {
 
     renderBackground(ctx, canvas);
 
-    renderTitle(ctx);
+    renderText(ctx, {x: 192, y: 80}, "Battleship", 64);
+    renderText(ctx, {x: 140, y: 480}, "You", 48);
+    renderText(ctx, {x: 400, y: 480}, "Enemy", 48);
     renderCoords(ctx, cellSize);
     renderBoard(ctx, gameboard, cellSize, {x: 48, y: 160});
     renderBoard(ctx, gameboard, cellSize, {x: 336, y: 160});
@@ -18,10 +20,13 @@ function renderBackground(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasEleme
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function renderTitle(ctx: CanvasRenderingContext2D) {
-        ctx.fillStyle = '#000';
-        ctx.font = "32px Tahoma";
-        ctx.fillText("Battleship", 256, 64);
+function renderText(ctx: CanvasRenderingContext2D, origin: Vector2, text: string, fontSize: number) {
+    const color = "#000"
+    const font = "Tahoma";
+
+    ctx.fillStyle = color;
+    ctx.font = `${fontSize}px ${font}`;
+    ctx.fillText(text, origin.x, origin.y);
 }
 
 function renderBoard(ctx: CanvasRenderingContext2D, gameboard: Gameboard, cellSize: number, origin: Vector2) {
