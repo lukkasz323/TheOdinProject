@@ -1,7 +1,7 @@
 import { Gameboard } from "./gameboard.js";
 import { Vector2 } from "./vector2.js";
 
-export function renderGame(canvas: HTMLCanvasElement, gameboard: Gameboard) {
+export function renderGame(canvas: HTMLCanvasElement, playerGameboard: Gameboard, enemyGameboard: Gameboard) {
     const ctx = canvas.getContext("2d");
     const cellSize = 32;
 
@@ -11,8 +11,8 @@ export function renderGame(canvas: HTMLCanvasElement, gameboard: Gameboard) {
     renderText(ctx, {x: 140, y: 480}, "You", 48);
     renderText(ctx, {x: 400, y: 480}, "Enemy", 48);
     renderCoords(ctx, cellSize);
-    renderBoard(ctx, gameboard, cellSize, {x: 48, y: 160});
-    renderBoard(ctx, gameboard, cellSize, {x: 336, y: 160});
+    renderBoard(ctx, cellSize, playerGameboard);
+    renderBoard(ctx, cellSize, enemyGameboard);
 }
 
 function renderBackground(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
@@ -29,13 +29,21 @@ function renderText(ctx: CanvasRenderingContext2D, origin: Vector2, text: string
     ctx.fillText(text, origin.x, origin.y);
 }
 
-function renderBoard(ctx: CanvasRenderingContext2D, gameboard: Gameboard, cellSize: number, origin: Vector2) {
+function renderBoard(ctx: CanvasRenderingContext2D, cellSize: number, gameboard: Gameboard) {
     for (let y = 0; y < gameboard.board.length; y++) {
         for (let x = 0; x < gameboard.board[y].length; x++) {
+            const cell = gameboard.board[y][x];
+            
+            if (cell.hasShip()) {
+                ctx.strokeStyle = "red";
+            }
+            else {
+                ctx.strokeStyle = "#000";
+            }
+
             ctx.lineWidth = 2;
-            ctx.strokeStyle = "#000";
-            const xx = (x * cellSize) + origin.x;
-            const yy = (y * cellSize) + origin.y;
+            const xx = (x * cellSize) + gameboard.origin.x;
+            const yy = (y * cellSize) + gameboard.origin.y;
             const w = cellSize;
             const h = cellSize;
             ctx.strokeRect(xx, yy, w, h);
