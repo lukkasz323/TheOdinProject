@@ -34,7 +34,7 @@ function renderBoard(ctx: CanvasRenderingContext2D, cellSize: number, gameboard:
         for (let x = 0; x < gameboard.board[y].length; x++) {
             const cell = gameboard.board[y][x];
             
-            if (cell.hasShip()) {
+            if (cell.ship) {
                 ctx.strokeStyle = "red";
             }
             else {

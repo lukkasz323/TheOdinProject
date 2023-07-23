@@ -44,14 +44,23 @@ export class Gameboard {
         ships.push(new Ship(2));
         ships.push(new Ship(2));
         ships.push(new Ship(2));
-        for (const ship of ships) {
-            const shipOrigin: Vector2 = {x: randomInRange(0, Gameboard.size - 1), y: randomInRange(0, Gameboard.size - 1)};
-            const shipCellsIndices: Vector2[] = [];
-            for (let i = 0; i < ship.length; i++) {
 
-            }
+        for (const ship of ships) {
+            this.#placeShipRandomly(ship);
         }
 
         return ships;
+    }
+
+    #placeShipRandomly(ship: Ship) {
+        const shipOrigin: Vector2 = {x: randomInRange(0, Gameboard.size - 1), y: randomInRange(0, Gameboard.size - 1)};
+        const shipCellsIndices: Vector2[] = [];
+        for (let i = 0; i < ship.length; i++) {
+            const cell = this.board[shipOrigin.y][shipOrigin.x];
+
+            if (!cell.ship) {
+                cell.ship = ship;
+            }
+        }
     }
 }
