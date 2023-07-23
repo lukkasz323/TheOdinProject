@@ -29,23 +29,40 @@ export function renderGame(canvas: HTMLCanvasElement, playerGameboard: Gameboard
     }
     
     function renderBoard(ctx: CanvasRenderingContext2D, cellSize: number, gameboard: Gameboard) {
-        for (let y = 0; y < gameboard.board.length; y++) {
-            for (let x = 0; x < gameboard.board[y].length; x++) {
-                const cell = gameboard.board[y][x];
-                
-                if (cell.ship) {
-                    ctx.strokeStyle = "red";
-                }
-                else {
+        renderGrid();
+        renderShips();
+
+        function renderGrid() {
+            for (let y = 0; y < gameboard.board.length; y++) {
+                for (let x = 0; x < gameboard.board[y].length; x++) {
+                    const cell = gameboard.board[y][x];
+                    
                     ctx.strokeStyle = "#000";
+                    ctx.lineWidth = 2;
+                    const xx = (x * cellSize) + gameboard.origin.x;
+                    const yy = (y * cellSize) + gameboard.origin.y;
+                    const w = cellSize;
+                    const h = cellSize;
+                    ctx.strokeRect(xx, yy, w, h);
                 }
-    
-                ctx.lineWidth = 2;
-                const xx = (x * cellSize) + gameboard.origin.x;
-                const yy = (y * cellSize) + gameboard.origin.y;
-                const w = cellSize;
-                const h = cellSize;
-                ctx.strokeRect(xx, yy, w, h);
+            }
+        }
+
+        function renderShips() {
+            for (let y = 0; y < gameboard.board.length; y++) {
+                for (let x = 0; x < gameboard.board[y].length; x++) {
+                    const cell = gameboard.board[y][x];
+                    
+                    if (cell.ship) {
+                        ctx.strokeStyle = "red";
+                        ctx.lineWidth = 2;
+                        const xx = (x * cellSize) + gameboard.origin.x;
+                        const yy = (y * cellSize) + gameboard.origin.y;
+                        const w = cellSize;
+                        const h = cellSize;
+                        ctx.strokeRect(xx, yy, w, h);
+                    }
+                }
             }
         }
     }
